@@ -1,20 +1,20 @@
 # Mlflow tutorial
 
-**Disclaimer:** I have borrowed some ideas and steps from the [MLOps Zoomcamp] (https://github.com/DataTalksClub/mlops-zoomcamp) as well as the [Mlflow documentation/tutorials] (https://mlflow.org/docs/latest/tutorials-and-examples/index.html).
+**Disclaimer:** I have borrowed some ideas and steps from the [MLOps Zoomcamp](https://github.com/DataTalksClub/mlops-zoomcamp) as well as the [Mlflow documentation/tutorials](https://mlflow.org/docs/latest/tutorials-and-examples/index.html).
 
 This repository contains a step-by-step process that demonstrates some of the core functionalities of Mlflow.
 
-#### Step 0: Run local experiments
+### Step 0: Run local experiments
 
 `0_run_experiments.py`
 
-This program demonstrates a simple model hyper-parameter search process. A data scientist splits the modeling data into three partitions and tries to find the best values for two hyper-parameters (`l1_ratio` and `alpha`) for an Elastic Net model. Four different values are tested for `alpha` and three for `l1_ratio`, resulting in 12 total combinations. Two model evaluation metrics are reviewed (`rmse` and `mae`) by simply printing them in the output.
+This program demonstrates a simple hyper-parameter search process. We split the modeling dataset into three partitions and try to find the best values for two hyper-parameters (`l1_ratio` and `alpha`) for an Elastic Net model. Four different values are evaluated for `alpha` and three for `l1_ratio`, resulting in twelve total combinations. Two model evaluation metrics are reviewed (`rmse` and `mae`) by simply printing them in the output.
 
-#### Step 1: Track experiments (using Mlflow)
+### Step 1: Track experiments (using Mlflow)
 
 `1_track_experiments.py`
 
-This program shows how to use Mlflow Tracking to create an experiment and record the model hyper-parameters and metrics.
+We now use *Mlflow Tracking* to create an experiment and record the model hyper-parameters and metrics. Instead of just printing those values in the output (in Step 1), we now store these values in a systematic way so that they can be reviewed in future:
 
 The following Mlflow functions are introduced in this program:
 
@@ -29,7 +29,7 @@ Notice that the `list_experiments()` function now returns two experiments.
 
 We can view the details of this experiment on the Mlflow UI. Enter the following command to activate the UI: `Mlflow ui`. Click on the following URL (or copy + paste it in your browser) that will be printed in the output: http://127.0.0.1:5000. You can also see plots to better identify the best set of hyper-parameters.
 
-#### Step 2: Save the model as an artifact
+### Step 2: Save the model as an artifact
 
 `2_save_artifacts.py`
 
@@ -45,7 +45,7 @@ Now you can go back to the Mlflow UI (again, by entering `Mlflow ui` on the term
 
 The saved model (and other artifacts) can now be used in another program to score a new dataset.
 
-#### Step 4: Create tracking URI
+### Step 4: Create tracking URI
 
 `4_create_tracking_uri.py`
 
@@ -59,7 +59,7 @@ Note that the location for the model artifacts has to be assigned when we use a 
 
 On the Mlflow UI, you will notice that the *Models* tab (on the top right menu) can now be accessed. This is because we have a model artifact location.
 
-#### Step 5: Register a model to Mlflow registry
+### Step 5: Register a model to Mlflow registry
 
 `5_register_model.py`
 
@@ -70,7 +70,7 @@ You will need the correct `run_id` for the model you would like to register.
 `list_run_infos()` is used to extract the information about an experiment, including the `run_id` for the model that you would like to register.
 `register_model()` is used to register the model to the Mlflow model registry. Once registered, you will see that model appear on the Mlflow UI under the *Models* tab.
 
-#### Step 6: Go remote!
+### Step 6: Go remote!
 
 `6_go_remote.py`
 
