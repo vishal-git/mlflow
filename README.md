@@ -29,9 +29,9 @@ Notice that the `list_experiments()` function now returns two experiments.
 
 We can view the details of this experiment on the Mlflow UI. Enter the following command to activate the UI: `Mlflow ui`. Click on the following URL (or copy + paste it in your browser) that will be printed in the output: http://127.0.0.1:5000. You can also see plots to better identify the best set of hyper-parameters.
 
-#### Step 2a: Save the model as an artifact
+#### Step 2: Save the model as an artifact
 
-`2a_save_artifacts.py`
+`2_save_artifacts.py`
 
 Once the model is finalized, we can save the final model an artifact using Mlflow. In a real-world situation, a Data Scientist would spend more time exploring additional values for the hyper-parameters, but we are keeping things simple by just picking the best set of values from our initial range of values. (`best_alpha=0.01` and `best_l1_ratio=0.2` were chosen somewhat arbitrarily.)
 
@@ -39,9 +39,15 @@ Once the model is finalized, we can save the final model an artifact using Mlflo
 
 Now you can go back to the Mlflow UI (again, by entering `Mlflow ui` on the terminal) and you will see that the latest experiment (once you click on it) contains artifacts saved under the 'model' section. 
 
-#### Step 3: Create tracking URI
+### Step 3: Use model arfifacts
 
-`3_create_tracking_uri.py`
+`3_use_artifacts.py`
+
+The saved model (and other artifacts) can now be used in another program to score a new dataset.
+
+#### Step 4: Create tracking URI
+
+`4_create_tracking_uri.py`
 
 We now launch a tracking server to explore the experiment results. For now, we will continue to keep the backend and artifact store _locally_. However, instead of using the local _filesystem_, we will now use *SQLite database for backend storage*. 
 
@@ -53,9 +59,9 @@ Note that the location for the model artifacts has to be assigned when we use a 
 
 On the Mlflow UI, you will notice that the *Models* tab (on the top right menu) can now be accessed. This is because we have a model artifact location.
 
-#### Step 4: Register a model to Mlflow registry
+#### Step 5: Register a model to Mlflow registry
 
-`4_register_model.py`
+`5_register_model.py`
 
 Now that we are using a SQLite database for backend storage, we can register models with the Mlflow model registry.
 
@@ -64,9 +70,9 @@ You will need the correct `run_id` for the model you would like to register.
 `list_run_infos()` is used to extract the information about an experiment, including the `run_id` for the model that you would like to register.
 `register_model()` is used to register the model to the Mlflow model registry. Once registered, you will see that model appear on the Mlflow UI under the *Models* tab.
 
-#### Step 5: Go remote!
+#### Step 6: Go remote!
 
-`5_go_remote.py`
+`6_go_remote.py`
 
 In this step, we will use a remote tracking server (running on AWS EC2), remote backend store using Postgres database (on AWS ECR), and remote artifact store (on AWS S3). Here are the steps to set those up on AWS: [mlflow_on_aws.md] (https://github.com/DataTalksClub/mlops-zoomcamp/blob/main/02-experiment-tracking/mlflow_on_aws.md) _(Note: These steps are outlined as part of MLOps Zoomcamp that I mentioned above. I recommend you check it out if you are interested in MLOps.)_
 
